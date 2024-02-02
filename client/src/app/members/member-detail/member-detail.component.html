@@ -1,1 +1,56 @@
-<p>member-detail works!</p>
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <div class="card">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Location:
+                        <p>{{member.city}}, {{member.country}}</p>
+                    </strong>
+                </div>
+                <div>
+                    <strong>Age:
+                        <p>{{member.age}}</p>
+                    </strong>
+                </div>
+                <div>
+                    <strong>Last active:
+                        <p>{{member.lastActive}}</p>
+                    </strong>
+                </div>
+                <div>
+                    <strong>Member since:
+                        <p>{{member.created}}</p>
+                    </strong>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group d-flex"></div>
+                    <button class="btn btn-primary">Like</button>
+                    <button class="btn btn-success">Messages</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" #tabGroup="matTabGroup"
+            (selectedTabChange)="onTabChange($event)">
+            <mat-tab label="About {{member.knownAs}}">
+                <h4>Description</h4>
+                <p>{{member.introduction}}</p>
+                <h4>Looking for</h4>
+                <p>{{member.lookingFor}}</p>
+            </mat-tab>
+            <mat-tab label="Interests">
+                <h4>Interests</h4>
+                <p>{{member.interests}}</p>
+            </mat-tab>
+            <mat-tab label="Photos">
+                <gallery *ngIf="isPhotoTabActive" [items]="images" class="gallery"></gallery>
+            </mat-tab>
+            <mat-tab label="Messages">
+                <p>Messages will go here</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

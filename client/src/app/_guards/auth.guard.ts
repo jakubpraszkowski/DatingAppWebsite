@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const AuthGuard: CanActivateFn = (route, state) => {
   const accountService = inject(AccountService);
   const toastr = inject(ToastrService);
 
@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     map(user => {
       if (user) return true;
       else {
-        toastr.error('you shall now pass!');
+        toastr.error('you shall not pass!');
         return false;
       }
     })
