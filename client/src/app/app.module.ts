@@ -19,6 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     TestErrorComponent,
     NotFoundComponent,
     ServerErrorComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     provideClientHydration(),
     provideAnimationsAsync()
   ],

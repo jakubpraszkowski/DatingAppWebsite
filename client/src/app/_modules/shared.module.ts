@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     CommonModule,
     NgbModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
@@ -18,7 +20,8 @@ import { MatTabsModule } from '@angular/material/tabs';
   exports: [
     NgbModule,
     ToastrModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ]
 })
 
