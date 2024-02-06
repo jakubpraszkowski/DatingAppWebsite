@@ -22,6 +22,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     ServerErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
