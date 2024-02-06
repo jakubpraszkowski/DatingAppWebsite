@@ -2,13 +2,20 @@
     <div class="col-2" *ngFor="let photo of member.photos">
         <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail mb-1">
         <div class="text-center">
-            <button class="btn-btn-sm">Main </button>
-            <button class="btn-btn-sm btn-danger"><i class="fa fa-trash"></i> </button>
+            <button class="btn-btn-sm" [disabled]="photo.isMain" (click)="setMainPhoto(photo)"
+                [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'">Main </button>
+            <button class="btn-btn-sm btn-danger" [disabled]="photo.isMain" (click)="deletePhoto(photo.id)"><i
+                    class="fa fa-trash"></i> </button>
         </div>
     </div>
-</div>
-
-<div>
-    <input type="file" (change)="selectFile($event)" />
-    <button (click)="upload()">Upload</button>
+    <p></p>
+    <div>
+        <div>
+            <h4>Add Photos</h4>
+            <input type="file" (change)="selectFile($event)" />
+        </div>
+        <div class="button-container">
+            <button class="upload-button" *ngIf="selectedFiles" (click)="upload()">Upload</button>
+        </div>
+    </div>
 </div>
