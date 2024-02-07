@@ -35,6 +35,7 @@ export class PhotoEditorComponent {
     this.selectedFiles = event.target.files;
   }
 
+
   setMainPhoto(photo: Photo) {
     this.memberService.setMainPhoto(photo.id).subscribe({
       next: _ => {
@@ -70,6 +71,9 @@ export class PhotoEditorComponent {
           next: (photo) => {
             if (this.member) {
               this.member.photos.push(photo);
+              if (this.member.photos.length === 1) {
+                this.setMainPhoto(photo);
+              }
             }
           },
           error: (error) => {
