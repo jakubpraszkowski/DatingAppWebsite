@@ -3,3 +3,8 @@
         <app-member-card [member]="member"></app-member-card>
     </div>
 </div>
+
+<div class="d-flex justify-content-center" *ngIf="pagination">
+    <ngb-pagination [collectionSize]="pagination.totalItems" [pageSize]="pagination.itemsPerPage"
+        [(page)]="pagination.currentPage" (pageChange)="pageChanged($event)"></ngb-pagination>
+</div>

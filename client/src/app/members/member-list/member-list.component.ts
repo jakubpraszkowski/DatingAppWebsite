@@ -14,7 +14,7 @@ export class MemberListComponent implements OnInit {
   members: Member[] = [];
   pagination: Pagination | undefined;
   pageNumber = 1;
-  pageSize = 5;
+  pageSize = 3;
 
   constructor(private memberService: MembersService) { }
 
@@ -33,5 +33,12 @@ export class MemberListComponent implements OnInit {
         }
       }
     });
+  }
+
+  pageChanged(event: any) {
+    if (this.pageNumber !== event) {
+      this.pageNumber = event;
+      this.loadMembers();
+    }
   }
 }
