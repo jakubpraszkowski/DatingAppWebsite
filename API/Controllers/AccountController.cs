@@ -42,7 +42,8 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
 
@@ -61,7 +62,7 @@ namespace API.Controllers
 
             for (int i = 0; i < computedHash.Length; ++i)
             {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("invalid password");
+                if (computedHash[i] != user?.PasswordHash?[i]) return Unauthorized("invalid password");
             }
 
             return new UserDto
@@ -69,7 +70,8 @@ namespace API.Controllers
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                KnownAs = user.KnownAs
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
             };
         }
         private async Task<bool> UserExists(string? username)
