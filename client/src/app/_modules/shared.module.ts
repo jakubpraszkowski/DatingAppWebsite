@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 const materialModules = [
   MatTabsModule,
@@ -20,6 +21,7 @@ const materialModules = [
   MatFormFieldModule,
   MatProgressBarModule,
   MatToolbarModule,
+  MatButtonToggleModule
 ]
 
 @NgModule({

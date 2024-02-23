@@ -26,7 +26,23 @@
             </select>
         </div>
         <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
-        <button (click)="resetFilters" class="btn btn-info ms-1" type="reset">Reset Filters</button>
+        <button (click)="resetFilters()" class="btn btn-info ms-1" type="reset">Reset Filters</button>
+
+        <div class="col">
+            <div class="btn-group float-end">
+                <mat-button-toggle-group>
+                    <mat-button-toggle type="button" class="btn btn-primary" name="orderBy"
+                        [(ngModel)]="userParams.orderBy" btnRadio="lastActive" (click)="loadMembers()">Last
+                        Active</mat-button-toggle>
+
+                    <mat-button-toggle type="button" class="btn btn-primary" name="orderBy"
+                        [(ngModel)]="userParams.orderBy" btnRadio="created" (click)="loadMembers()">Newest
+                        members</mat-button-toggle>
+                </mat-button-toggle-group>
+
+            </div>
+        </div>
+
     </form>
 </div>
 
