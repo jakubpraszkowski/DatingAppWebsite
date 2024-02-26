@@ -30,13 +30,10 @@
 
         <div class="col">
             <div class="btn-group float-end">
-                <mat-button-toggle-group>
-                    <mat-button-toggle type="button" class="btn btn-primary" name="orderBy"
-                        [(ngModel)]="userParams.orderBy" btnRadio="lastActive" (click)="loadMembers()">Last
+                <mat-button-toggle-group [(value)]="userParams.orderBy" (click)="loadMembers()">
+                    <mat-button-toggle type="button" class="btn btn-primary" value="lastActive">Last
                         Active</mat-button-toggle>
-
-                    <mat-button-toggle type="button" class="btn btn-primary" name="orderBy"
-                        [(ngModel)]="userParams.orderBy" btnRadio="created" (click)="loadMembers()">Newest
+                    <mat-button-toggle type="button" class="btn btn-primary" value="created">Newest
                         members</mat-button-toggle>
                 </mat-button-toggle-group>
 

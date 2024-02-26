@@ -6,13 +6,14 @@ import { CommonModule } from '@angular/common';
 import { MatTabChangeEvent, MatTabGroup, MatTabsModule } from '@angular/material/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TimeService } from '../../_services/time.service';
+import { MemberMessagesComponent } from '../member-messages/member-messages.component';
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.css',
-  imports: [CommonModule, MatTabsModule, GalleryModule]
+  imports: [CommonModule, MatTabsModule, GalleryModule, MemberMessagesComponent]
 })
 
 export class MemberDetailComponent implements OnInit, OnDestroy {
