@@ -27,13 +27,13 @@
                 <div class="card-footer">
                     <div class="btn-group d-flex"></div>
                     <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success">Messages</button>
+                    <button (click)="goToMessagesTab()" class="btn btn-success">Messages</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-8">
-        <mat-tab-group class="member-tabset" mat-stretch-tabs="false" mat-align-tabs="start" #tabGroup="matTabGroup"
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" #tabGroup="matTabGroup"
             (selectedTabChange)="onTabChange($event)">
             <mat-tab label="About {{member.knownAs}}">
                 <h4>Description</h4>

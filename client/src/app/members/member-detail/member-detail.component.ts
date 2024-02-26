@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MembersService } from '../../_services/members.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +18,9 @@ import { MemberMessagesComponent } from '../member-messages/member-messages.comp
 
 export class MemberDetailComponent implements OnInit, OnDestroy {
   @ViewChild('photoTab') photoTab!: MatTabGroup;
+  // @ViewChild('messagesTab') messagesTab: MatTabGroup | undefined;
+  @ViewChild('tabGroup') tabGroup: MatTabGroup | undefined;
+  @Output() tabChanged = new EventEmitter<number>();
 
   member: Member | undefined;
   images: GalleryItem[] = [];
@@ -37,6 +40,12 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+  }
+
+  goToMessagesTab() {
+    if (!this.tabGroup) return;
+    this.tabGroup.selectedIndex = 3;
+    this.tabChanged.emit(this.tabGroup.selectedIndex);
   }
 
   loadMember() {
