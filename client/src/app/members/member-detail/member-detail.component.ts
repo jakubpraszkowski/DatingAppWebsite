@@ -19,7 +19,6 @@ import { TabService } from '../../_services/tab.service';
 
 export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('photoTab') photoTab!: MatTabGroup;
-  // @ViewChild('messagesTab') messagesTab: MatTabGroup | undefined;
   @ViewChild('tabGroup') tabGroup: MatTabGroup | undefined;
   @Output() tabChanged = new EventEmitter<number>();
 
@@ -29,18 +28,16 @@ export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   timeAgo: string | undefined;
   intervalId: any;
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private timeService: TimeService,
-    private tabService: TabService) { }
+  constructor(private memberService: MembersService, private route: ActivatedRoute, private timeService: TimeService) { }
 
   ngOnInit(): void {
     this.loadMember();
     this.updateTimeAgo();
     this.intervalId = setInterval(() => this.updateTimeAgo(), 60 * 1000);
-    // this.tabService.currentTab.subscribe(tabIndex => this.selectTab(tabIndex));
   }
 
   ngAfterViewInit(): void {
-    this.tabService.currentTab.subscribe(tabIndex => this.selectTab(tabIndex));
+    this.goToMessagesTab();
   }
 
   ngOnDestroy(): void {
@@ -52,14 +49,11 @@ export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   goToMessagesTab() {
     if (!this.tabGroup) return;
     this.tabGroup.selectedIndex = 3;
-    console.log(this.tabGroup.selectedIndex);
     this.tabChanged.emit(this.tabGroup.selectedIndex);
   }
 
   selectTab(tabId: number) {
     if (!this.tabGroup) return;
-    console.log("AAAAA");
-    console.log('selectTab', tabId);
     this.tabGroup.selectedIndex = tabId;
     this.tabChanged.emit(this.tabGroup.selectedIndex);
   }
