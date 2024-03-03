@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Member } from '../../_models/member';
 import { MembersService } from '../../_services/members.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { MatTabChangeEvent, MatTabGroup, MatTabsModule } from '@angular/material
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { TimeService } from '../../_services/time.service';
 import { MemberMessagesComponent } from '../member-messages/member-messages.component';
+import { TabService } from '../../_services/tab.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -16,7 +17,7 @@ import { MemberMessagesComponent } from '../member-messages/member-messages.comp
   imports: [CommonModule, MatTabsModule, GalleryModule, MemberMessagesComponent]
 })
 
-export class MemberDetailComponent implements OnInit, OnDestroy {
+export class MemberDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('photoTab') photoTab!: MatTabGroup;
   // @ViewChild('messagesTab') messagesTab: MatTabGroup | undefined;
   @ViewChild('tabGroup') tabGroup: MatTabGroup | undefined;
@@ -28,12 +29,18 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   timeAgo: string | undefined;
   intervalId: any;
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute, private timeService: TimeService) { }
+  constructor(private memberService: MembersService, private route: ActivatedRoute, private timeService: TimeService,
+    private tabService: TabService) { }
 
   ngOnInit(): void {
     this.loadMember();
     this.updateTimeAgo();
     this.intervalId = setInterval(() => this.updateTimeAgo(), 60 * 1000);
+    // this.tabService.currentTab.subscribe(tabIndex => this.selectTab(tabIndex));
+  }
+
+  ngAfterViewInit(): void {
+    this.tabService.currentTab.subscribe(tabIndex => this.selectTab(tabIndex));
   }
 
   ngOnDestroy(): void {
@@ -45,6 +52,15 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   goToMessagesTab() {
     if (!this.tabGroup) return;
     this.tabGroup.selectedIndex = 3;
+    console.log(this.tabGroup.selectedIndex);
+    this.tabChanged.emit(this.tabGroup.selectedIndex);
+  }
+
+  selectTab(tabId: number) {
+    if (!this.tabGroup) return;
+    console.log("AAAAA");
+    console.log('selectTab', tabId);
+    this.tabGroup.selectedIndex = tabId;
     this.tabChanged.emit(this.tabGroup.selectedIndex);
   }
 
