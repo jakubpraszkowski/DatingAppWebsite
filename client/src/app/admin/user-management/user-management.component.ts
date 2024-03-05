@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/user';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';
 
 @Component({
   selector: 'app-user-management',
@@ -10,7 +12,7 @@ import { User } from '../../_models/user';
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getUsersWithRoles();
@@ -20,5 +22,15 @@ export class UserManagementComponent implements OnInit {
     this.adminService.getUsersWithRoles().subscribe({
       next: users => this.users = users
     })
+  }
+
+  openRolesModal() {
+    const rolesModalRef = this.modalService.open(RolesModalComponent);
+    rolesModalRef.componentInstance.list = [
+      'Do thing',
+      'Do another thing',
+      'Do something else',
+    ];
+    rolesModalRef.componentInstance.title = 'Test modal';
   }
 }

@@ -1,1 +1,13 @@
-<p>roles-modal works!</p>
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close"
+        (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <ul *ngIf="list.length">
+        <li *ngFor="let item of list">{{item}}</li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="activeModal.close()">{{closeBtnName}}</button>
+</div>
