@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/user';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';
 
 @Component({
@@ -11,6 +11,12 @@ import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.compon
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
+  availableRoles = [
+    'Admin',
+    'Moderator',
+    'Member'
+  ];
+
 
   constructor(private adminService: AdminService, private modalService: NgbModal) { }
 
@@ -24,13 +30,24 @@ export class UserManagementComponent implements OnInit {
     })
   }
 
-  openRolesModal() {
-    const rolesModalRef = this.modalService.open(RolesModalComponent);
-    rolesModalRef.componentInstance.list = [
-      'Do thing',
-      'Do another thing',
-      'Do something else',
-    ];
-    rolesModalRef.componentInstance.title = 'Test modal';
+  openRolesModal(user: User) {
+    const config: NgbModalOptions = {
+      centered: true
+    };
+    const rolesModalRef = this.modalService.open(RolesModalComponent, config);
+    rolesModalRef.componentInstance.username = user.username;
+    rolesModalRef.componentInstance.availableRoles = this.availableRoles;
+    rolesModalRef.componentInstance.selectedRoles = [...user.roles];
+
+    const updateRoles = (updatedRoles: string[]) => {
+      if (updatedRoles) {
+        user.roles = updatedRoles;
+        this.adminService.updateUserRoles(user.username, updatedRoles).subscribe({
+          next: _ => { }
+        })
+      }
+    };
+    rolesModalRef.closed.subscribe(updateRoles);
+    rolesModalRef.dismissed.subscribe(updateRoles);
   }
 }
